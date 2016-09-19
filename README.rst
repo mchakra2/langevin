@@ -17,7 +17,7 @@ langevin_dynamics
      :target: https://pyup.io/repos/github/mchakra2/langevin_dynamics/
      :alt: Updates
 
-The aim of this project is to implement the equations governing the langevin dynamics.
+	   The aim of this project is to implement the equations governing the langevin dynamics. The Langevin equations are stochastic differential equations with two additional terms added to the Newtonian's second law equation.  The Langevin model accounts for the drag forces that a system experiences when it is in a solvent or a medium. The model is also capable of controlling temperature and can approximate the canonical ensemble.
 
 
 * Free software: MIT license
