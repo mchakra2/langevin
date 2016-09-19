@@ -17,8 +17,7 @@ langevin_dynamics
      :target: https://pyup.io/repos/github/mchakra2/langevin_dynamics/
      :alt: Updates
 
-
-To demonstrate langevin dynamics
+The aim of this project is to implement the equations governing the langevin dynamics.
 
 
 * Free software: MIT license
