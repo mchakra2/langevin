@@ -48,10 +48,10 @@ class Test_Input(unittest.TestCase):
             #print (p)
             flag = os.path.exists("./docs/input.txt")
             self.assertTrue(flag)
-            if flag==True :
+            '''if flag==True :
                 
             else:
-                print("Input file Not found
+                print("Input file Not found")'''
             
 
 
