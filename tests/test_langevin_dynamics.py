@@ -8,7 +8,7 @@ test_langevin_dynamics
 Tests for `langevin_dynamics` module.
 """
 
-
+import os
 import sys
 import unittest
 from contextlib import contextmanager
@@ -38,6 +38,15 @@ class TestLangevin_dynamics(unittest.TestCase):
         help_result = runner.invoke(cli.main, ['--help'])
         assert help_result.exit_code == 0
         assert '--help  Show this message and exit.' in help_result.output
+
+class Test_Input(unittest.TestCase):
+        
+    def setUp(self):
+            pass
+    def test_input_file_exists(self):
+            p=os.getcwd()
+            print (p)
+            self.assertTrue(os.path.exists("./docs/input.txt"))
 
 
 if __name__ == '__main__':
