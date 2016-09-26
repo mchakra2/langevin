@@ -44,9 +44,15 @@ class Test_Input(unittest.TestCase):
     def setUp(self):
             pass
     def test_input_file_exists(self):
-            p=os.getcwd()
-            print (p)
-            self.assertTrue(os.path.exists("./docs/input.txt"))
+            #p=os.getcwd()
+            #print (p)
+            flag = os.path.exists("./docs/input.txt")
+            self.assertTrue(flag)
+            if flag==True :
+                
+            else:
+                print("Input file Not found
+            
 
 
 if __name__ == '__main__':
