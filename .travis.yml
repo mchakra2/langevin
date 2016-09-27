@@ -17,8 +17,9 @@ env:
 - TOXENV=py26
 - TOXENV=pypy
 
-install: pip install -U tox codecov
-
+install:
+ -pip install -U tox codecov
+ -pip install coveralls
 language: python
 python: 3.5
 script: tox -e ${TOXENV}
