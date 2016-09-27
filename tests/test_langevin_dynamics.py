@@ -10,6 +10,7 @@ Tests for `langevin_dynamics` module.
 
 import os
 import sys
+
 import unittest
 from contextlib import contextmanager
 from click.testing import CliRunner

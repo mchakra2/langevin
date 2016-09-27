@@ -20,9 +20,7 @@ env:
 install: pip install -U tox codecov
 language: python
 python: 3.5
-#script: tox -e ${TOXENV}
-scrip:
-  - coverage run tests.pyt
+script: tox -e ${TOXENV}
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
