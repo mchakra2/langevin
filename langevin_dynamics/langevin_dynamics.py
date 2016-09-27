@@ -17,7 +17,7 @@ class Langevin:
     dt=.01
     N=200
     os.getcwd()
-    Pot_file='../docs/Pot_Example.txt'
+    Pot_file='./docs/Pot_Example.txt'
     '''
     init_pos=float(input("Initial Position"))
     
