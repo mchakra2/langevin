@@ -16,7 +16,7 @@ class Langevin:
     L=.5
     dt=.01
     N=200
-    Pot_file='/home/maghesree/CHE477/Pot_Example.txt'
+    Pot_file='../docs/Pot_Example.txt'
     '''
     init_pos=float(input("Initial Position"))
     
