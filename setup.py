@@ -14,7 +14,7 @@ requirements = [
     # TODO: put package requirements here
 ]
 
-test_requirements = [
+test_requirements = ['numpy'
     # TODO: put package test requirements here
 ]
 
@@ -56,4 +56,5 @@ setup(
     ],
     test_suite='tests',
     tests_require=test_requirements
+    #setup_require=['numpy']
 )
