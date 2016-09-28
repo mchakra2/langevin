@@ -70,8 +70,7 @@ class Test_Input(unittest.TestCase):
             pass
     
     def test_euler_input(self):
-        with self.assertRaises(TypeError):
-            langevin_dynamics(1.4,0,1.1)
+        self.assertRaises(TypeError,langevin_dynamics.euler,[1.4,0,1.1])
      
             
 
