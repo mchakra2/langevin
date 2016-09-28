@@ -15,7 +15,7 @@ env:
 - TOXENV=py33
 - TOXENV=py27
 - TOXENV=py26
-- TOXENV=pypy
+
 
 install:
 - pip install -U tox
