@@ -25,7 +25,8 @@ class TestLangevin_dynamics(TestCase):
     
 
     def setUp(self):
-        pass
+        #pass
+        self.p = langevin_dynamics.Langevin()
 
     def tearDown(self):
         pass
@@ -41,37 +42,86 @@ class TestLangevin_dynamics(TestCase):
         help_result = runner.invoke(cli.main, ['--help'])
         assert help_result.exit_code == 0
         assert '--help  Show this message and exit.' in help_result.output
-    
+
     def test_input_file_exists(self):
-            #p=os.getcwd()
-            #print (p)
-            flag = os.path.exists(langevin_dynamics.Pot_file)
-            self.assertTrue(flag)
+
+        flag = os.path.exists(self.p.Pot_file)
+        self.assertTrue(flag)
+    def test_wrap(self):
+        self.assertEqual(0.2, round(self.p.wrap(2.2,1),1))
+
+    
+    def test_force_non_langevin_sanity(self):
+        dU,frc=self.p.force(1.4,0,0)
+        self.assertEqual(dU,frc)
+        
+    def test_force_non_langevin_sanity(self):
+        dU,frc=self.p.force(1.4,0,1)
+        self.assertNotEqual(dU,frc)
+
+
+    def test_euler_position(self):
+        p,v=self.p.euler(2,1,4)
+        pos=round(2+(self.p.dt*1),2)
+        self.assertEqual(round(p,2),pos)
+        #self.assertTrue( case1 and case2)
+        
+    def test_euler_vel(self):
+        p,v=self.p.euler(2,1,4)
+        vel=round(1+(self.p.dt*4/self.p.mass),2)
+        self.assertEqual(round(v,2),vel)
+
+
+    def test_output_file_exists(self):
+        self.p.main()
+        flag = os.path.exists(self.p.o_file)
+        self.assertTrue(flag)
+
+    def test_output_not_empty(self):
+        self.p.main()
+        flag = os.path.getsize(self.p.o_file)
+
+        self.assertGreater(flag,0)
+
+    '''
+    def test_match_table(self):
+        self.assertEqual(0.000664,langevin_dynamics.tab_match(0.314))
+
+    def test_input_file_exists(self):
+
+        flag = os.path.exists(langevin_dynamics.Pot_file)
+        self.assertTrue(flag)
+
+
     
     def test_wrap(self):
         self.assertEqual(0.2, round(langevin_dynamics.wrap(2.2,1),1))
-    '''def test_match_table(self):
-        self.assertEqual(0.000664,langevin_dynamics.tab_match(0.314))'''
     
-    def test_euler_non_langevin_sanity(self):
-        dU,force=langevin_dynamics.euler(1.4,0,0)
-        self.assertEqual(dU,force)
-        
-    def test_euler_langevin_sanity(self):
-        dU,force=langevin_dynamics.euler(1.4,0,1)
-        self.assertNotEqual(dU,force)
 
-        
+    
+    def test_force_non_langevin_sanity(self):
+        dU,frc=langevin_dynamics.force(1.4,0,0)
+        self.assertEqual(dU,frc)'''
+
+
         
 
 class Test_Input(unittest.TestCase):
         
     def setUp(self):
             pass
+        
     
-    def test_euler_input(self):
-        self.assertRaises(TypeError,langevin_dynamics.euler,[1.4,0,1.1])
-     
+    '''def test_euler_input(self):
+        self.assertRaises(TypeError,langevin_dynamics.euler,[1.4,0,1.1])'''
+
+class Test_Output(unittest.TestCase):
+    def setUp(self):
+        pass
+
+ 
+
+
             
 
 

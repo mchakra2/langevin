@@ -4,7 +4,7 @@ import math
 import numpy as np
 import os
 import random
-
+'''
 kb=1
 mass=1
 D=2
@@ -34,9 +34,11 @@ class Langevin:
     Pot_file='./docs/Pot_Example.txt'
     data= np.loadtxt(Pot_file)
 
+    o_file="./output.txt"
 
 
-    init_pos=float(input("Initial Position"))
+
+    '''init_pos=float(input("Initial Position"))
     
     init_vel=float(input("Initial Velocity"))
     T=float(input("Temperature"))
@@ -69,7 +71,7 @@ class Langevin:
 
     #def __init__(self):
     #   pass
-    #print (data[1])
+    #print (data[1])'''
     def main(self):
         pos=self.wrap(self.init_pos,self.D)
         vel=self.init_vel
@@ -77,16 +79,17 @@ class Langevin:
         t=0
         p=0
         v=0
-        f=open("/home/maghesree/CHE477/test.txt","w")
+        f=open(self.o_file,"w")
         f.write('index   time   position  velocity \n {0:d}  {1:4f}  {2:3f}  {3:4f}\n'.format(index, t, pos,vel))
         
         while(t<=(self.N*self.dt)):
             p=pos
             v=vel
-            pos,vel=self.euler(p,v)
+            frc,dU=self.force(p,v,1)
+            pos,vel=self.euler(p,v,frc)
             pos=self.wrap(pos,self.D)
             index+=1
-            print(index)
+            #print(index)
             t=t+self.dt
             f.write('{0:d}  {1:4f}  {2:3f}  {3:4f}\n'.format(index, t, pos,vel))
         f.close()
@@ -96,60 +99,62 @@ class Langevin:
         if pp < 0:
             return(PBC-pp)
         return (pp)
-    def euler(self,p,v):
-        p=self.warp(p)
+    
+    def euler(self,p,v,frc):
+        #p=self.warp(p,self.D)
         temp_p=p+(self.dt*v)
-        temp_p=langevin_dynamics.wrap(temp_p)
-        ff = np.interp(p, data[:,1],data[:,3]) #force from the input potential
+        #temp_p=self.wrap(temp_p,self.D)
+        v=v+(self.dt*frc/self.mass)
+        return(temp_p,v)
+
+    
+    def force(self,p,v,switch):
+        ff = np.interp(p, self.data[:,1],self.data[:,3]) #force from the input potential
         std_dev=math.sqrt(2*self.T*self.kb*self.L)
         eta=random.gauss(0,std_dev)
         if switch==0:#Turning langevin dynamics off
             force=ff
         else:
             force=-(self.L*v)+eta+ff
-
-            #print(force,v)
-            v=v+(dt*force/mass)
-    
-        return(temp_p,v)
        
+        return(force,ff)
     
     
-    
+
+ 
+'''
 if __name__ == "__main__":
     #f=Langevin()
     main()
- 
-'''
 
 def wrap(pos,PBC):
     pp=pos%PBC
     if pp < 0:
         return(PBC-pp)
     return (pp)
-'''
+
 def tab_match(pos):
     a=np.interp(pos, data[:,1],data[:,3])
     return(a)
-'''
 
-def euler(p,v,switch):
+
+def force(p,v,switch):
     if type(switch)!=int:
         print("Switch has to be an integer")
         raise TypeError
     temp_p=p+(dt*v)
-    #temp_p=wrap(temp_p)
+    temp_p=wrap(temp_p,D)
     ff = np.interp(p, data[:,1],data[:,3]) #force from the input potential
     std_dev=math.sqrt(2*T*kb*L)
     eta=random.gauss(0,std_dev)
     if switch==0:#Turning langevin dynamics off
-        force=ff
+        frc=ff
     else:
         force=-(L*v)+eta+ff
         print("In Langevin")
 
     #print(force,v)
-    v=v+(dt*force/mass)
-    return(ff,force)
-    #return(temp_p,v)
+    v=v+(dt*frc/mass)
+    return(ff,frc)
+    #return(temp_p,v)'''
 
