@@ -3,9 +3,6 @@ langevin_dynamics
 ===============================
 
 
-.. image:: https://img.shields.io/pypi/v/langevin_dynamics.svg
-        :target: https://pypi.python.org/pypi/langevin_dynamics
-
 .. image:: https://img.shields.io/travis/mchakra2/langevin_dynamics.svg
         :target: https://travis-ci.org/mchakra2/langevin_dynamics
 
