@@ -4,12 +4,13 @@ import math
 import numpy as np
 import os
 import random
+import warnings
 '''
 kb=1
 mass=1
 D=2
 init_pos=D*random.random()
-init_vel=4
+init_vel=1
 T=1
 L=.5
 dt=.01
@@ -18,6 +19,7 @@ os.getcwd()
 Pot_file='./docs/Pot_Example.txt'
 data= np.loadtxt(Pot_file)
 '''
+#input_f=sys.argv[1]
 class Langevin:
 #def main():
 
@@ -25,18 +27,19 @@ class Langevin:
     mass=1
     D=2
     init_pos=D*random.random()
-    init_vel=4
+    init_vel=1
     T=1
     L=.5
     dt=.01
     N=200
     os.getcwd()
-    Pot_file='./docs/Pot_Example.txt'
+    Pot_file='./IOFiles/Pot_Example.txt'
     data= np.loadtxt(Pot_file)
 
-    o_file="./output.txt"
+    o_file="./IOFiles/output.txt"
 
-
+    input_f='./IOFiles/input.txt'
+    #self.__init__(input_f)
 
     '''init_pos=float(input("Initial Position"))
     
@@ -73,6 +76,9 @@ class Langevin:
     #   pass
     #print (data[1])'''
     def main(self):
+        
+        self.parameters(self.input_f)
+        print(self.init_pos, self.init_vel,self.dt)              
         pos=self.wrap(self.init_pos,self.D)
         vel=self.init_vel
         index=0
@@ -118,8 +124,51 @@ class Langevin:
             force=-(self.L*v)+eta+ff
        
         return(force,ff)
+
+    def parameters(self,in_file):
+        if os.path.exists(in_file)!= True:
+            print ("The input file path does not exist. Default values will be used")
+            raise IOError
+        f = open(in_file)
+        
+        for line in f:
+            #print (line)
+            if "=" not in line or line.startswith("#"):
+                #print(line)
+                continue
+
+            if  line.split("=")[0]=='kb':
+                self.kb=float(line.split("=")[1])
+       
+            elif line.split("=")[0]=='mass':
+                self.mass=float(line.split("=")[1])
     
-    
+            elif line.split("=")[0]=='D':
+                self.D=float(line.split("=")[1])
+            elif line.split("=")[0]=='init_pos':
+                self.init_pos=float(line.split("=")[1])
+            elif line.split("=")[0]=='init_vel':
+                self.init_vel=float(line.split("=")[1])
+            elif line.split("=")[0]=='T':
+                self.T=float(line.split("=")[1])
+            elif line.split("=")[0]=='L':
+                self.L=float(line.split("=")[1])
+            elif line.split("=")[0]=='dt':
+                self.dt=float(line.split("=")[1])
+            elif line.split("=")[0]=='N':
+                self.N=float(line.split("=")[1])
+            elif line.split("=")[0]=='Pot_file':
+                self.Pot_file=line.split("=")[1].rstrip()
+                print(os.path.exists(self.Pot_file))
+                if os.path.exists(self.Pot_file)== False:
+                    print("The Potential Energy file does not exist")
+                    raise IOError
+            elif line.split("=")[0]=='o_file':
+                self.o_file=line.split("=")[1].rstrip()
+                if os.path.exists(self.Pot_file)== True:
+                    warnings.warn("A file named "+self.o_file +" already exists. Overwriting the file with output")
+
+            #print(self.init_pos)
 
  
 '''
