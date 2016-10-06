@@ -44,18 +44,24 @@ class TestLangevin_dynamics(TestCase):
         assert '--help  Show this message and exit.' in help_result.output
 
     def test_input_file_exists(self):
+           
+        self.assertRaises(IOError,self.p.parameters,'random_file_which_should_not_exist.txt')
 
-        flag = os.path.exists(self.p.Pot_file)
-        self.assertTrue(flag)
-    def test_wrap(self):
+
+
+    def test_potential_file_exists(self):
+        self.assertRaises(IOError,self.p.parameters,'./tests/test_input.txt')
+        #flag = os.path.exists(self.p.Pot_file)
+        #self.assertTrue(flag)
+    def test_wrap_positive_val(self):
         self.assertEqual(0.2, round(self.p.wrap(2.2,1),1))
-
+        
     
     def test_force_non_langevin_sanity(self):
         dU,frc=self.p.force(1.4,0,0)
         self.assertEqual(dU,frc)
         
-    def test_force_non_langevin_sanity(self):
+    def test_force_langevin_sanity(self):
         dU,frc=self.p.force(1.4,0,1)
         self.assertNotEqual(dU,frc)
 
@@ -82,6 +88,9 @@ class TestLangevin_dynamics(TestCase):
         flag = os.path.getsize(self.p.o_file)
 
         self.assertGreater(flag,0)
+        
+    def test_euler_input(self):
+        self.assertRaises(TypeError,self.p.euler,[1.4,0,1.1])
 
     '''
     def test_match_table(self):

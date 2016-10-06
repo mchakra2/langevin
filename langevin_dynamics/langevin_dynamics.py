@@ -102,14 +102,11 @@ class Langevin:
 
     def wrap(self,pos,PBC):
         pp=pos%PBC
-        if pp < 0:
-            return(PBC-pp)
         return (pp)
     
     def euler(self,p,v,frc):
-        #p=self.warp(p,self.D)
+       
         temp_p=p+(self.dt*v)
-        #temp_p=self.wrap(temp_p,self.D)
         v=v+(self.dt*frc/self.mass)
         return(temp_p,v)
 
@@ -120,6 +117,7 @@ class Langevin:
         eta=random.gauss(0,std_dev)
         if switch==0:#Turning langevin dynamics off
             force=ff
+            
         else:
             force=-(self.L*v)+eta+ff
        
@@ -133,40 +131,40 @@ class Langevin:
         
         for line in f:
             #print (line)
-            if "=" not in line or line.startswith("#"):
+            #if "=" not in line or line.startswith("#"):
                 #print(line)
-                continue
-
-            if  line.split("=")[0]=='kb':
-                self.kb=float(line.split("=")[1])
+                #continue
+            if "=" in line:
+                if  line.split("=")[0]=='kb':
+                    self.kb=float(line.split("=")[1])
        
-            elif line.split("=")[0]=='mass':
-                self.mass=float(line.split("=")[1])
+                elif line.split("=")[0]=='mass':
+                    self.mass=float(line.split("=")[1])
     
-            elif line.split("=")[0]=='D':
-                self.D=float(line.split("=")[1])
-            elif line.split("=")[0]=='init_pos':
-                self.init_pos=float(line.split("=")[1])
-            elif line.split("=")[0]=='init_vel':
-                self.init_vel=float(line.split("=")[1])
-            elif line.split("=")[0]=='T':
-                self.T=float(line.split("=")[1])
-            elif line.split("=")[0]=='L':
-                self.L=float(line.split("=")[1])
-            elif line.split("=")[0]=='dt':
-                self.dt=float(line.split("=")[1])
-            elif line.split("=")[0]=='N':
-                self.N=float(line.split("=")[1])
-            elif line.split("=")[0]=='Pot_file':
-                self.Pot_file=line.split("=")[1].rstrip()
-                print(os.path.exists(self.Pot_file))
-                if os.path.exists(self.Pot_file)== False:
-                    print("The Potential Energy file does not exist")
-                    raise IOError
-            elif line.split("=")[0]=='o_file':
-                self.o_file=line.split("=")[1].rstrip()
-                if os.path.exists(self.Pot_file)== True:
-                    warnings.warn("A file named "+self.o_file +" already exists. Overwriting the file with output")
+                elif line.split("=")[0]=='D':
+                    self.D=float(line.split("=")[1])
+                elif line.split("=")[0]=='init_pos':
+                    self.init_pos=float(line.split("=")[1])
+                elif line.split("=")[0]=='init_vel':
+                    self.init_vel=float(line.split("=")[1])
+                elif line.split("=")[0]=='T':
+                    self.T=float(line.split("=")[1])
+                elif line.split("=")[0]=='L':
+                    self.L=float(line.split("=")[1])
+                elif line.split("=")[0]=='dt':
+                    self.dt=float(line.split("=")[1])
+                elif line.split("=")[0]=='N':
+                    self.N=float(line.split("=")[1])
+                elif line.split("=")[0]=='Pot_file':
+                    self.Pot_file=line.split("=")[1].rstrip()
+                    #print(os.path.exists(self.Pot_file))
+                    if os.path.exists(self.Pot_file)== False:
+                        print("The Potential Energy file does not exist")
+                        raise IOError
+                elif line.split("=")[0]=='o_file':
+                    self.o_file=line.split("=")[1].rstrip()
+                    if os.path.exists(self.Pot_file)== True:
+                        warnings.warn("A file named "+self.o_file +" already exists. Overwriting the file with output")
 
             #print(self.init_pos)
 
