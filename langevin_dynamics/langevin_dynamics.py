@@ -86,7 +86,7 @@ class Langevin:
         p=0
         v=0
         f=open(self.o_file,"w")
-        f.write('index   time   position  velocity \n {0:d}  {1:4f}  {2:3f}  {3:4f}\n'.format(index, t, pos,vel))
+        f.write('#index   time   position  velocity \n {0:d}  {1:4f}  {2:3f}  {3:4f}\n'.format(index, t, pos,vel))
         
         while(t<=(self.N*self.dt)):
             p=pos

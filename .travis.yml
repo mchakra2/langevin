@@ -25,6 +25,6 @@ python: 3.5
 script:
 - tox -e ${TOXENV}
 - coverage run --source=langevin_dynamics/langevin_dynamics.py setup.py test
-
+- coverage report -m
 after_success: coveralls
 
