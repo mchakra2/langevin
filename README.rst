@@ -8,10 +8,10 @@ langevin_dynamics
 
 .. image:: https://readthedocs.org/projects/langevin-dynamics/badge/?version=latest
         :target: https://langevin-dynamics.readthedocs.io/en/latest/?badge=latest
-	:alt: Documentation Status
+   :alt: Documentation Status
 
-.. image:: https://coveralls.io/repos/github/mchakra2/langevin_dynamics/badge.svg?branch=master
-        :target: https://coveralls.io/github/mchakra2/langevin_dynamics?branch=master
+.. image:: https://coveralls.io/repos/github/mchakra2/langevin_dynamics/badge.svg
+	:target: https://coveralls.io/github/mchakra2/langevin_dynamics
 
 .. image:: https://pyup.io/repos/github/mchakra2/langevin_dynamics/shield.svg
 	:target: https://pyup.io/repos/github/mchakra2/langevin_dynamics/
