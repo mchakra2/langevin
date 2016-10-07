@@ -1,7 +1,3 @@
-#kb
-kb=1
-#mass
-mass=1
 #D
 D=2
 #init_pos

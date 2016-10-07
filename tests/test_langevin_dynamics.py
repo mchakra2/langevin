@@ -92,25 +92,6 @@ class TestLangevin_dynamics(TestCase):
     def test_euler_input(self):
         self.assertRaises(TypeError,self.p.euler,[1.4,0,1.1])
 
-    '''
-    def test_match_table(self):
-        self.assertEqual(0.000664,langevin_dynamics.tab_match(0.314))
-
-    def test_input_file_exists(self):
-
-        flag = os.path.exists(langevin_dynamics.Pot_file)
-        self.assertTrue(flag)
-
-
-    
-    def test_wrap(self):
-        self.assertEqual(0.2, round(langevin_dynamics.wrap(2.2,1),1))
-    
-
-    
-    def test_force_non_langevin_sanity(self):
-        dU,frc=langevin_dynamics.force(1.4,0,0)
-        self.assertEqual(dU,frc)'''
 
 
         
@@ -121,8 +102,7 @@ class Test_Input(unittest.TestCase):
             pass
         
     
-    '''def test_euler_input(self):
-        self.assertRaises(TypeError,langevin_dynamics.euler,[1.4,0,1.1])'''
+
 
 class Test_Output(unittest.TestCase):
     def setUp(self):
