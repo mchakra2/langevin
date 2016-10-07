@@ -51,6 +51,7 @@ class Langevin:
             t=t+self.dt
             f.write('{0:d}  {1:4f}  {2:3f}  {3:4f}\n'.format(index, t, pos,vel))
         f.close()
+        print("Final Position: ",pos,"Final velocity: ",vel,"Output file: ",self.o_file)
 
     def wrap(self,pos,PBC):
         pp=pos%PBC
